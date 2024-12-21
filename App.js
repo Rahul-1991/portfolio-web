@@ -5,6 +5,8 @@ import StocksScreen from './src/screens/StocksScreen';
 import MutualFundsScreen from './src/screens/MutualFundsScreen';
 import FixedDepositScreen from './src/screens/FixedDepositScreen';
 import RDScreen from './src/screens/RDScreen';
+import CryptoScreen from './src/screens/CryptoScreen';
+import NSCScreen from './src/screens/NSCScreen';
 import { Image, StyleSheet } from 'react-native';
 
 
@@ -13,7 +15,9 @@ const AppNavigator = createStackNavigator({
   Stocks: StocksScreen,
   MutualFunds: MutualFundsScreen,
   FixedDeposit: FixedDepositScreen,
-  RecurringDeposit: RDScreen
+  RecurringDeposit: RDScreen,
+  Crypto: CryptoScreen,
+  NSC: NSCScreen
 },{
     initialRouteName: 'Home',
     defaultNavigationOptions: {
