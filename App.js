@@ -1,20 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import HomeScreen from './src/screens/HomeScreen';
+import StocksScreen from './src/screens/StocksScreen';
+import MutualFundsScreen from './src/screens/MutualFundsScreen';
+import { Image, StyleSheet } from 'react-native';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+
+const AppNavigator = createStackNavigator({
+  Home: HomeScreen,
+  Stocks: StocksScreen,
+  MutualFunds: MutualFundsScreen
+},{
+    initialRouteName: 'Home',
+    defaultNavigationOptions: {
+      headerTitle: () => (
+        <Image 
+          style={styles.headerLogo}
+          source={require('./assets/logo.png')}
+          resizeMode="contain"
+        />
+      ),
+      headerTitleAlign: 'left',
+      headerStyle: {
+        backgroundColor: 'blue'
+      }
+    }
+  }
+);
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  headerLogo: {
+    width: 30,
+    height: 30
+  }
 });
+
+export default createAppContainer(AppNavigator);
