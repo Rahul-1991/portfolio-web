@@ -39,7 +39,7 @@ export default function AssetSummary({ navigation }) {
             </TouchableOpacity>
         </View>
         <View style={styles.assetsContainer}>
-            <TouchableOpacity onPress={() => navigation.navigate('RD')}>
+            <TouchableOpacity onPress={() => navigation.navigate('RecurringDeposit')}>
                 <Asset 
                     icon="💰"
                     title="RD" 

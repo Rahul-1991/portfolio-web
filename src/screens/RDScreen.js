@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import FixedDepositSummary from '../components/FixedDepositSummary';
-import FixedDepositItems from '../components/FixedDepositItems';
+import RDSummary from '../components/RDSummary';
+import RDItems from '../components/RDItems';
 
-export default function FixedDepositScreen() {
+export default function RDScreen() {
     return (
         <View style={styles.container}>
-            <FixedDepositSummary />
-            <FixedDepositItems />
+            <RDSummary />
+            <RDItems />
         </View>
     );
 }
