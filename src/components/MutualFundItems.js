@@ -1,21 +1,33 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 
-export default function MutualFundItems() {
+export default function MutualFundItems( { portfolioItems } ) {
+    const formatAmountWithCommas = (amount) => {
+        if (!amount) return '0';
+        if (amount) {
+            amount = Math.floor(amount);
+        }
+        return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      };
     return (
         <View style={styles.container}>
             <Text>Holdings(7)</Text>
             <View style={styles.itemsContainer}>
-                <View style={styles.itemContainer}>
-                    <View style={styles.leftContainer}>
-                        <Text style={styles.fundName}>HDFC Gold ETF Fund</Text>
-                        <Text style={styles.fundType}>Growth</Text>
+                <FlatList
+                    data={portfolioItems}
+                    renderItem={({ item }) => (
+                        <View style={styles.itemContainer}>
+                            <View style={styles.leftContainer}>
+                                <Text style={styles.fundName}>{item.name}</Text>
+                            <Text style={styles.fundType}>Growth</Text>
+                        </View>
+                        <View style={styles.rightContainer}>
+                            <Text style={styles.currentValue}>₹{formatAmountWithCommas(item.currentAmount)}</Text>
+                            <Text style={styles.actualValue}>(₹{formatAmountWithCommas(item.invested)})</Text>
+                        </View>
                     </View>
-                    <View style={styles.rightContainer}>
-                        <Text style={styles.currentValue}>₹11,534</Text>
-                        <Text style={styles.actualValue}>(₹15,000)</Text>
-                    </View>
-                </View>
+                    )}
+                />
             </View>
         </View>
     );
@@ -27,12 +39,12 @@ export const styles = StyleSheet.create({
         padding: 15,
     },
     itemsContainer: {
-        marginTop: 20
+        marginTop: 10
     },
     itemContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingBottom: 20,
+        paddingVertical: 10,
         borderBottomWidth: 1,
         borderBottomColor: 'gray'
     },

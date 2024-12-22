@@ -25,7 +25,7 @@ const AppNavigator = createStackNavigator({
         <Image 
           style={styles.headerLogo}
           source={require('./assets/logo.png')}
-          resizeMode="contain"
+          // resizeMode="contain"
         />
       ),
       headerTitleAlign: 'left',

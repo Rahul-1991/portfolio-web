@@ -2,8 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Asset from './Asset';
 
-export default function AssetSummary({ navigation }) {
+export default function AssetSummary({ assets, navigation }) {
 
+  console.log("AssetSummary");
+  console.log(assets);
   return (
     <View style={styles.container}>
         <View style={styles.headingContainer}>
@@ -16,48 +18,48 @@ export default function AssetSummary({ navigation }) {
             margin: 10
         }} />
         <View style={styles.assetsContainer}>
-            <TouchableOpacity onPress={() => navigation.navigate('Stocks')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Stocks', {stocksData: assets[0]})}>
                 <Asset 
                     icon="📈"
                     title="Stocks" 
-                    value="₹15,000"
+                    value={assets[0].invested}
                 />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('MutualFunds')}>
+            <TouchableOpacity onPress={() => navigation.navigate('MutualFunds', {mfData: assets[1]})}>
                 <Asset 
                     icon="📊"
                     title="Mutual Funds" 
-                    value="₹1,50,000"
+                    value={assets[1].invested}
                 />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('FixedDeposit')}>
+            <TouchableOpacity onPress={() => navigation.navigate('FixedDeposit', {assets: assets[2]})}>
                 <Asset 
                     icon="🏦"
                     title="Fixed Deposit" 
-                    value="₹1,50,000"
+                    value={assets[2].invested}
                 />
             </TouchableOpacity>
         </View>
         <View style={styles.assetsContainer}>
-            <TouchableOpacity onPress={() => navigation.navigate('RecurringDeposit')}>
+            <TouchableOpacity onPress={() => navigation.navigate('RecurringDeposit', {assets: assets[3]})}>
                 <Asset 
                     icon="💰"
                     title="RD" 
-                    value="₹1,50,000"
+                    value={assets[3].invested}
                 />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Crypto')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Crypto', {assets: assets[4]})}>
                 <Asset 
                     icon="₿"
                     title="Crypto" 
-                    value="₹1,50,000"
+                    value={assets[4].invested}
                 />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('NSC')}>
+            <TouchableOpacity onPress={() => navigation.navigate('NSC', {assets: assets[5]})}>
                 <Asset 
                     icon="📜"
                     title="NSC" 
-                    value="₹1,50,000"
+                    value={assets[5].invested}
                 />
             </TouchableOpacity>
         </View>

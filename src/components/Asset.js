@@ -2,7 +2,12 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 export default function Asset({ icon, title, value }) {
-    
+  
+  const formatAmountWithCommas = (amount) => {
+    if (!amount) return '0';
+    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
+  
   return (
     <View style={styles.container}>
       <View>
@@ -12,7 +17,7 @@ export default function Asset({ icon, title, value }) {
         <Text style={styles.title}>{title}</Text>
       </View>
       <View>
-        <Text style={styles.value}>{value}</Text>
+      <Text style={styles.value}>₹{formatAmountWithCommas(value)}</Text>
       </View>
     </View>
   );

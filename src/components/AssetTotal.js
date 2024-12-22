@@ -1,10 +1,22 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function AssetTotal() {
+export default function AssetTotal({ total }) {
+
+  const formatAmount = (amount) => {
+    if (!amount) return '0';
+    
+    if (amount >= 100000) {
+      return Math.floor(amount/100000) + 'L';
+    }
+    if (amount >= 1000) {
+      return Math.floor(amount/1000) + 'K';
+    }
+    return amount.toString();
+  };
   return (
     <View>
-      <Text style={styles.assetTotal}>₹40,000</Text>
+      <Text style={styles.assetTotal}>₹{formatAmount(total)}</Text>
     </View>
   );
 }

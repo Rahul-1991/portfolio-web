@@ -1,11 +1,19 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function MutualFundSummary({ portfolioData }) {
-    
+export default function AssetItemSummary({ portfolioData, title }) {
+
+    const formatAmountWithCommas = (amount) => {
+        if (!amount) return '0';
+        if (amount) {
+            amount = Math.floor(amount);
+        }
+        return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      };
+
     return (
         <View style={styles.container}>
-            <Text style={styles.heading}>Mutual Funds</Text>
+            <Text style={styles.heading}>{title}</Text>
             <View style={styles.valueContainer}>
                 <View style={styles.investedValueContainer}>
                     <Text style={styles.inrValue}>₹{formatAmountWithCommas(portfolioData.invested)}</Text>
@@ -22,7 +30,9 @@ export default function MutualFundSummary({ portfolioData }) {
                     <Text style={styles.valueLabel}>Profit INR</Text>
                 </View>
                 <View style={styles.profitPercentageContainer}>
-                    <Text style={styles.profitValue}>{portfolioData.gainPercentage}%</Text>
+                    <Text style={styles.profitValue}>
+                        {((portfolioData.gain) / portfolioData.invested * 100).toFixed(1)}%
+                    </Text>
                     <Text style={styles.valueLabel}>Profit %</Text>
                 </View>
             </View>
@@ -67,6 +77,11 @@ export const styles = StyleSheet.create({
         alignItems: 'flex-end'
     },
     inrValue: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        color: 'black'
+    },
+    profitValue: {  
         fontSize: 15,
         fontWeight: 'bold',
         color: 'black'

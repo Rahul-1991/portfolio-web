@@ -2,12 +2,12 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import MutualFundSummary from '../components/MutualFundsSummary';
 import MutualFundItems from '../components/MutualFundItems';
-
-export default function MutualFundsScreen() {
+import AssetItemSummary from '../components/AssetItemSummary';
+export default function MutualFundsScreen({ navigation }) {
     return (
         <View style={styles.container}>
-            <MutualFundSummary />
-            <MutualFundItems />
+            <AssetItemSummary portfolioData={navigation.getParam('mfData')} title="Mutual Funds" />
+            <MutualFundItems portfolioItems={navigation.getParam('mfData')['investments']} />
         </View>
     );
 }
