@@ -1,42 +1,59 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
 
-export default function CryptoItems() {
+export default function CryptoItems({ portfolioItems }) {
+    const images = {
+        Bitcoin: require('../../assets/Bitcoin.png'),
+        Ethereum: require('../../assets/Ethereum.png'),
+    };
+    const formatAmountWithCommas = (amount) => {
+        if (!amount) return '0';
+        if (amount) {
+            amount = Math.floor(amount);
+        }
+        return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    };
     return (
         <View style={styles.container}>
             <Text>Holdings(7)</Text>
             <View style={styles.itemsContainer}>
-                <View style={styles.itemContainer}>
-                    <View style={styles.topContainer}>
-                        <View style={styles.topLeftContainer}>
-                            <View style={styles.logoContainer}>
-                                <Image source={require('../../assets/bitcoin.png')} style={styles.logo} />
+                <FlatList
+                    data={portfolioItems}
+                    renderItem={({ item }) => (
+                        <View style={styles.itemContainer}>
+                            <View style={styles.topContainer}>
+                                <View style={styles.topLeftContainer}>
+                                    <View style={styles.logoContainer}>
+                                        <Image source={images[item.name]} style={styles.logo} />
+                                        {/* <Image source={require('../../assets/bitcoin.png')} style={styles.logo} /> */}
+                                    </View>
+                                    <View style={styles.nameContainer}>
+                                        <Text style={styles.count}>{item.qty}</Text>
+                                        <Text style={styles.name}>{item.name}</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.topRightContainer}>
+                                    <Text style={styles.profitPercent}>{formatAmountWithCommas(item.returnPercent)}%</Text>
+                                    <Text style={styles.profitPercentText}>Profit%</Text>
+                                </View>
                             </View>
-                            <View style={styles.nameContainer}>
-                                <Text style={styles.count}>0.00269171</Text>
-                                <Text style={styles.name}>Bitcoin</Text>
+                            <View style={styles.bottomContainer}>
+                                <View style={styles.leftContainer}>
+                                    <Text style={styles.currentText}>Current</Text>
+                                    <Text style={styles.currentValue}>₹{formatAmountWithCommas(item.currentAmount)}</Text>
+                                </View>
+                                <View style={styles.middleContainer}>
+                                    <Text style={styles.investedText}>Invested</Text>
+                                    <Text style={styles.investedValue}>₹{formatAmountWithCommas(item.invested)}</Text>
+                                </View>
+                                <View style={styles.rightContainer}>
+                                    <Text style={styles.profitText}>Profit</Text>
+                                    <Text style={styles.profitValue}>₹{formatAmountWithCommas(item.unrealisedGain)}</Text>
+                                </View>
                             </View>
                         </View>
-                        <View style={styles.topRightContainer}>
-                            <Text style={styles.profitPercent}>66.25%</Text>
-                            <Text style={styles.profitPercentText}>Profit%</Text>
-                        </View>
-                    </View>
-                    <View style={styles.bottomContainer}>
-                        <View style={styles.leftContainer}>
-                            <Text style={styles.currentText}>Current</Text>
-                            <Text style={styles.currentValue}>₹15,000</Text>
-                        </View>
-                        <View style={styles.middleContainer}>
-                            <Text style={styles.investedText}>Invested</Text>
-                            <Text style={styles.investedValue}>₹10000</Text>
-                        </View>
-                        <View style={styles.rightContainer}>
-                            <Text style={styles.profitText}>Profit</Text>
-                            <Text style={styles.profitValue}>₹5000</Text>
-                        </View>
-                    </View>
-                </View>
+                    )}
+                />
             </View>
         </View>
     );
@@ -57,7 +74,8 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'gray',
         borderRadius: 10,
-        padding: 10
+        padding: 10,
+        marginVertical: 5
     },
     topContainer: {
         flexDirection: 'row',
